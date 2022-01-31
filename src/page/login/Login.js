@@ -45,17 +45,19 @@ const Login = () => {
 
   const onLoginClick = useCallback(  async () => {
     // login Logic
-    dispatch( { type: 'REGISTER', user: {  } } )
-    try {
-      const data = { userName: '김한솔', password: '123123' }
-      const result = await req2svr.registerUser( data )
-      console.log( 'result', result )
-    } catch( err ) {
-      console.log( 'err', err )
-    }
+    // dispatch( { type: 'REGISTER', user: {  } } )
+    // try {
+      
+    // } catch( err ) {
+    //   console.log( 'err', err )
+    // }
 
-    // history( 'chating' )
+    history( 'room' )
   }, [ dispatch ] )
+
+  const onClickSingUp = useCallback( () => {
+    history( 'signup' )
+  } )
 
   return (
     <div className="login">
@@ -85,7 +87,7 @@ const Login = () => {
         </div>
       </div>
       <div className='footer'>
-        <div className='singup'>회원가입</div>
+        <div className='singup' onClick={onClickSingUp}>회원가입</div>
         <div className='reset-pass'>비밀번호 재설정</div>
       </div>
     </div>

@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Login from 'page/login/Login'
 import './Routes.css'
+import Room from 'page/room/Room'
+import SignUp from 'page/singup/SignUp'
 
 const Router = () => {
   return (
@@ -9,6 +11,8 @@ const Router = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/room" element={<Room/>} />
+          <Route path="/signup" element={<SignUp/>} />
           {/* <Route path="users/*" element={<Users />} /> */}
         </Routes>
     </BrowserRouter>

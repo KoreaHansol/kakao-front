@@ -40,6 +40,10 @@
         border-bottom: 1px solid #E5D32E;
         border-left: 1px solid #E5D32E;
         border-right: 1px solid #E5D32E;
+        
+        .pure-input {
+          border: 0;
+        }
       }
 
       .custom-button {
