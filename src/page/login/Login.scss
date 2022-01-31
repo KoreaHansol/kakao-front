@@ -1,0 +1,72 @@
+.login {
+  display: grid;
+  grid-template-rows: 40px minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  background-color: #FCE000;
+
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+
+    .icon {
+      font-size: 20px;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .kakao-image {
+      width: 100%;
+    }
+
+    .input-area {
+      padding: 0 60px;
+
+      .select-input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #E5D32E;
+        border-bottom: 1px solid #F2F2F2;
+      }
+      
+      .wrapper {
+        height: 40px;
+        border-bottom: 1px solid #E5D32E;
+        border-left: 1px solid #E5D32E;
+        border-right: 1px solid #E5D32E;
+      }
+
+      .custom-button {
+        margin-top: 5px;
+        height: 50px;
+        background-color: #423630;
+
+        .text-log-in {
+          font-size: 14px;
+          color: #acacac;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+
+    .singup {
+      font-size: 13px;
+      margin-right: 15px;
+    }
+
+    .reset-pass {
+      font-size: 13px;
+    }
+  }
+}

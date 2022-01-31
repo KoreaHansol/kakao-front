@@ -1,0 +1,14 @@
+import React, { useCallback } from "react"
+import _ from 'lodash'
+import './CustomButton.scss'
+
+const CustomButton = ( { onClick, children, disabled } ) => {
+
+  return (
+   <div className="custom-button" onClick={ ( e ) => { onClick( e ) } } style={ disabled ? { backgroundColor: '#f6f6f6', pointerEvents: 'none' } : {} }>
+     { children }
+   </div> 
+  )
+}
+
+export default React.memo( CustomButton )

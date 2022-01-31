@@ -1,0 +1,33 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+  }
+
+  .list {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #ffffff;
+
+    .item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 30px;  
+    }
+  }
+}
