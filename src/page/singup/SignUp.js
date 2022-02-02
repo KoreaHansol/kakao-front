@@ -99,7 +99,7 @@ const SignUp = () => {
 
         <div className='error-reason'>
           { sign && reason && reason.map( v => {
-            return <div key={v}>{ v }</div>
+            return <div key={ v }>{ v }</div>
           } ) }
         </div>
         

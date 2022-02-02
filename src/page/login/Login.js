@@ -44,16 +44,12 @@ const Login = () => {
   }, [ idList ] )
 
   const onLoginClick = useCallback(  async () => {
-    // login Logic
-    // dispatch( { type: 'REGISTER', user: {  } } )
-    // try {
-      
-    // } catch( err ) {
-    //   console.log( 'err', err )
-    // }
-
-    history( 'room' )
-  }, [ dispatch ] )
+    const data = { email: idValue, password: passValue }
+    const { result } = await req2svr.validateuser( data )
+    if( result.length ) {
+      history( 'room' )
+    }
+  }, [ dispatch, idValue, passValue ] )
 
   const onClickSingUp = useCallback( () => {
     history( 'signup' )

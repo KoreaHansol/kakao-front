@@ -8,10 +8,10 @@ let checkResCode = res => {
 }
 
 export default {
+  getuserlist() {
+    return axios.get( apiurl( '/getuserlist' ) ).then( x => checkResCode( x ) )
+  },
   registerUser( data ) {
     return axios.post( apiurl( '/registeruser' ), data ).then( x => checkResCode( x ) )
-  },
-  validateuser( data ) {
-    return axios.post( apiurl( '/validateuser' ), data ).then( x => checkResCode( x ) )
   }
 }
