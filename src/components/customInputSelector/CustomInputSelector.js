@@ -12,12 +12,9 @@ const CustomInputSelector = ( { value, onChange, items , placeHolder, valueProp 
     document.addEventListener( 'mousedown', outSideClickEvent )
     // update되기전 cleanUp
     return () => document.removeEventListener( 'mousedown', outSideClickEvent )
-  }, [ isOpen ] )
+  }, [] )
 
   const outSideClickEvent = ( event ) => {
-    if( !isOpen ) {
-      return
-    }
     if( btnEl.current !== event.target && !selectEl.current.contains( event.target ) ) {
       setIsOpen( false )
     }
