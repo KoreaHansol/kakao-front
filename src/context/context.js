@@ -1,59 +1,32 @@
-import { createContext, useReducer, useContext, useMemo } from "react";
+import React, { useReducer } from "react"
 
-// 추후 Provider를 사용하지 않았을 때에는 context의 값이 null이 되어야 하기때문에 null 값을 선언해준다.
-const StateContext = createContext(null)
-const DispatchContext =createContext(null)
-
-const factoryUseContext = (name, context) => () => {
-  const ctx = useContext(context);
-  if (ctx === undefined) {
-    throw new Error(
-      `use${name}Context must be used withing a ${name}ContextProvider.`,
-    );
-  }
-  return ctx;
-};
-
-
-export const useStateContext = factoryUseContext("StateContext", StateContext);
-export const useDispatchContext = factoryUseContext("DispatchContext",DispatchContext);
+export const Context = React.createContext()
 
 const initialState = {
-  user: {
-    id: '',
-    name: ''
-  }
+  user: {}
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'REGISTER':
-      console.log( action, state.user )
+const reducer = ( state, action ) => {
+  switch ( action.type ) {
+    case "SETUSER" :
       return {
-        user: state.user
+        ...state,
+        user: action.user,
       };
-    case "DECREASE":
-      return {
-        number: state.number - 1
-      };
-    case "RESET":
-      return {
-        number: 1
-      };
+    
     default:
-      return state;
+      throw new Error();
   }
 };
 
-export function ContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-const values = useMemo(() => state, [state]);
+const ContextProvider = ( { children } ) => {
+  const [state, contextDispatch] = useReducer( reducer, initialState )
   
   return (
-    <StateContext.Provider value={values}>
-      <DispatchContext.Provider value={dispatch}>
-        {children}
-      </DispatchContext.Provider>
-    </StateContext.Provider>
-  );
+    <Context.Provider value={ { user: state.user, contextDispatch } }>
+      { children }
+    </Context.Provider>
+  )
 }
+
+export default ContextProvider

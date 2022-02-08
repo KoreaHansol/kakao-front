@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import 'page/login/Login.scss'
 import _ from 'lodash'
 import KakaoImage from 'static/image/kakao.jpeg'
@@ -6,16 +6,16 @@ import CustomInput from 'components/customInput/CustomInput'
 import CustomInputSelector from 'components/customInputSelector/CustomInputSelector'
 import CustomButton from 'components/customButton/CustomButton'
 import { useNavigate } from 'react-router'
-import { useDispatchContext } from 'context/context'
 import req2svr from './req2svr'
+import { Context } from "context/context"
 
 const Login = () => {
   const [ idList, setIdList ] = useState( [] )
   const [ idValue, setIdValue ] = useState( '' )
   const [ passValue, setPassValue ] = useState( '' )
+  const { user, contextDispatch } = useContext( Context )
 
   const history = useNavigate()
-  const dispatch = useDispatchContext()
 
   useEffect( () => {
     // 로컬스토리지
@@ -48,8 +48,11 @@ const Login = () => {
     const { result } = await req2svr.validateuser( data )
     if( result.length ) {
       history( 'room' )
+      contextDispatch( { type: 'SETUSER', user: {
+        id: _.get( result, '0.id' ) 
+      } } )
     }
-  }, [ dispatch, idValue, passValue ] )
+  }, [ idValue, passValue ] )
 
   const onClickSingUp = useCallback( () => {
     history( 'signup' )

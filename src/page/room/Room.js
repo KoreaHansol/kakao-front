@@ -1,18 +1,22 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useNavigate } from 'react-router'
 import 'page/room/Room'
 import socketIOClient from "socket.io-client";
 import _ from 'lodash'
 import req2svr from './req2svr'
 import './Room.scss'
+import { useEffect } from 'react/cjs/react.development';
+import { Context } from "context/context"
 const socket = socketIOClient( 'http://localhost:8080' )
 
 const Room = () => {
   const history = useNavigate()
+  const { user } = useContext( Context )
 
-  const joinChanRoom = ( roomName ) => {
-    socket.emit( 'join', { roomName: 1 } )
-  }
+  useEffect( () => {
+    console.log( 'user', user )
+    socket.emit( 'init', user )
+  }, [ user ] )
 
   const makeRoom = useCallback( () => {
     history( 'makeroom' )
@@ -33,7 +37,7 @@ const Room = () => {
       </div>
       <div className='content'>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
@@ -48,7 +52,7 @@ const Room = () => {
           </div>
         </div>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
@@ -63,7 +67,7 @@ const Room = () => {
           </div>
         </div>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
@@ -78,7 +82,7 @@ const Room = () => {
           </div>
         </div>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
@@ -93,7 +97,7 @@ const Room = () => {
           </div>
         </div>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
@@ -108,7 +112,7 @@ const Room = () => {
           </div>
         </div>
 
-        <div className='room' onClick={joinChanRoom}>
+        <div className='room'>
           <div className='user-image'>
             image
           </div>
