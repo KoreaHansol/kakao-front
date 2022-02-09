@@ -13,5 +13,8 @@ export default {
   },
   registerUser( data ) {
     return axios.post( apiurl( '/registeruser' ), data ).then( x => checkResCode( x ) )
+  },
+  makeRoom( userList ) {
+    return axios.post( apiurl( '/makeroom' ), userList ).then( x => checkResCode( x ) )
   }
 }

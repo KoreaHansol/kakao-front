@@ -1,0 +1,23 @@
+.make-room-wrapper {
+  display: grid;
+  grid-template-rows: 60px minmax(0, 1fr);
+  height: 100%;
+  padding: 0 10px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .user-wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

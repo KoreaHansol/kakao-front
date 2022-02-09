@@ -13,7 +13,7 @@ const Login = () => {
   const [ idList, setIdList ] = useState( [] )
   const [ idValue, setIdValue ] = useState( '' )
   const [ passValue, setPassValue ] = useState( '' )
-  const { user, contextDispatch } = useContext( Context )
+  const { contextDispatch } = useContext( Context )
 
   const history = useNavigate()
 
@@ -47,10 +47,12 @@ const Login = () => {
     const data = { email: idValue, password: passValue }
     const { result } = await req2svr.validateuser( data )
     if( result.length ) {
+      const user = {
+        ..._.get( result, '0' )
+      }
+      contextDispatch( { type: 'SETUSER', user } )
+      window.localStorage.setItem( 'user', JSON.stringify( user ) )
       history( 'room' )
-      contextDispatch( { type: 'SETUSER', user: {
-        id: _.get( result, '0.id' ) 
-      } } )
     }
   }, [ idValue, passValue ] )
 
