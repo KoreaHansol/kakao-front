@@ -18,12 +18,16 @@ const Login = () => {
   const history = useNavigate()
 
   useEffect( () => {
-    // 로컬스토리지
-    const dummyDataList = [
-      { userId: 'hansol1992', userName: '김한솔1' },
-      { userId: '01039307860', userName: '김한솔2' }
-    ]
-    setIdList( dummyDataList )
+    try{
+      const localUser = window.localStorage.getItem( 'user' )
+      const parseData = JSON.parse( localUser )
+      if( !_.isEmpty( parseData ) )  {
+        const emailList = _.get( parseData, 'email' )
+        setIdList( [emailList] )
+      }
+    } catch( err ) {
+      console.error( err )
+    }
   }, [] )
 
   const onChangeInput = useCallback( ( value ) => {
