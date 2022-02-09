@@ -21,6 +21,8 @@ const reducer = ( state, action ) => {
 
 const ContextProvider = ( { children } ) => {
   const [ state, contextDispatch ] = useReducer( reducer, initialState )
+
+  // contextDispatch( state.user, )
   
   return (
     <Context.Provider value={ { user: state.user, contextDispatch } }>
