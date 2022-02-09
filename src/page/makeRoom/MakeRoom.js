@@ -28,18 +28,22 @@ const MakeRoom = () => {
     }
   }, [ checkList ] )
 
-  const makeRoom = () => {
+  const makeRoom = async () => {
     const userList = [ user.id, 
       ..._( checkList )
           .keys()
           .map( o => o * 1 )
           .value() 
     ]
-    req2svr.makeRoom( userList )
+    const { roomId } = await req2svr.makeRoom( userList )
+    if( roomId ) {
+      history( '/chat', { state: { roomId } } )
+    }
   }
 
   const processedUserList = useMemo( () => {
     return _.filter( userList, usr => {
+      console.log( usr )
       return _.get( usr, 'id' ) !== _.get( user, 'id' )
     } )
   }, [ userList ] )

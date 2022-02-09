@@ -51,7 +51,10 @@ const Login = () => {
         ..._.get( result, '0' )
       }
       contextDispatch( { type: 'SETUSER', user } )
-      window.localStorage.setItem( 'user', JSON.stringify( user ) )
+      const localUser = JSON.parse( window.localStorage.getItem( 'user' ) )
+      if( _.isEmpty( localUser ) ) {
+        window.localStorage.setItem( 'user', JSON.stringify( user ) )
+      }
       history( 'room' )
     }
   }, [ idValue, passValue ] )

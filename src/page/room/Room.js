@@ -5,27 +5,10 @@ import socketIOClient from "socket.io-client"
 import _ from 'lodash'
 import req2svr from './req2svr'
 import './Room.scss'
-import { Context } from "context/context"
 const socket = socketIOClient( 'http://localhost:8080' )
 
 const Room = () => {
   const history = useNavigate()
-  const { user, contextDispatch } = useContext( Context )
-
-  useEffect( async () => {
-    if( !_.isEmpty( user ) ) {
-      socket.emit( 'init', user )
-    } else {
-      let localUser = window.localStorage.getItem( 'user' )
-      try {
-        localUser = JSON.parse( localUser )
-        contextDispatch( { type: 'SETUSER', user: localUser } )
-      } catch( err ) {
-        console.error( err )
-      }
-      socket.emit( 'init', localUser )
-    }
-  }, [] )
 
   const makeRoom = useCallback( () => {
     history( 'makeroom' )

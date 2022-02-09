@@ -1,3 +1,4 @@
+import _ from "lodash"
 import React, { useReducer, createContext } from "react"
 
 export const Context = createContext()
@@ -21,9 +22,14 @@ const reducer = ( state, action ) => {
 
 const ContextProvider = ( { children } ) => {
   const [ state, contextDispatch ] = useReducer( reducer, initialState )
-
-  // contextDispatch( state.user, )
-  
+  try { // refresh
+    const localUser = JSON.parse( window.localStorage.getItem( 'user' ) )
+    if( !_.isEmpty( localUser ) ) {
+      state.user = localUser
+    }
+  } catch( err ) {
+    console.error( err )
+  }
   return (
     <Context.Provider value={ { user: state.user, contextDispatch } }>
       { children }
