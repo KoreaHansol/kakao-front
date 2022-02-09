@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import 'page/login/Login.scss'
+import req2svr from './req2svr'
 import _ from 'lodash'
+import 'page/login/Login.scss'
 import KakaoImage from 'static/image/kakao.jpeg'
 import CustomInput from 'components/customInput/CustomInput'
 import CustomInputSelector from 'components/customInputSelector/CustomInputSelector'
 import CustomButton from 'components/customButton/CustomButton'
 import { useNavigate } from 'react-router'
-import req2svr from './req2svr'
 import { Context } from "context/context"
 
 const Login = () => {
@@ -26,7 +26,7 @@ const Login = () => {
     setIdList( dummyDataList )
   }, [] )
 
-  const onchangeInput = useCallback( ( value ) => {
+  const onChangeInput = useCallback( ( value ) => {
     setIdValue( value )
   }, [] )
 
@@ -66,12 +66,12 @@ const Login = () => {
       <div className="content">
         <img alt="kakao" className="kakao-image" src={ KakaoImage }/>
         <div className="input-area">
-          <CustomInputSelector onChange={ onchangeInput }
+          <CustomInputSelector onChange={ onChangeInput }
                               items={ idList } 
                               value={ idValue }
-                              valueProp={ 'userId' }
-                              textProp={ 'userId' }
-                              keyProp={ 'userId' }
+                              valueProp='userId'
+                              textProp='userId'
+                              keyProp='userId'
                               placeHolder='카카오계정 (이메일 또는 전화번호)'
                               onSelect={ onSelectHandler }
                               onDelete={ onDeleteHandler }/>
@@ -86,7 +86,7 @@ const Login = () => {
         </div>
       </div>
       <div className='footer'>
-        <div className='singup' onClick={onClickSingUp}>회원가입</div>
+        <div className='singup' onClick={ onClickSingUp }>회원가입</div>
         <div className='reset-pass'>비밀번호 재설정</div>
       </div>
     </div>

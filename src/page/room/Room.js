@@ -14,7 +14,6 @@ const Room = () => {
   const { user } = useContext( Context )
 
   useEffect( () => {
-    console.log( 'user', user )
     socket.emit( 'init', user )
   }, [ user ] )
 

@@ -3,9 +3,6 @@ import './MakeRoom.scss'
 import _ from 'lodash'
 import req2svr from './req2svr'
 
-
-
-
 const MakeRoom = () => {
   const [ userList, setUserList ] = useState( [] )
 
