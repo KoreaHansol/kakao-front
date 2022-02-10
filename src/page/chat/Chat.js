@@ -16,7 +16,6 @@ const Chat = () => {
   const history = useNavigate()
   useEffect( () => {
     const roomId = _.get( state, 'roomId' )
-    console.log( 'roomId', roomId ) 
     if( !roomId ) {
       alert( '존재하지 않는 방입니다.' )
       history( '/room' )

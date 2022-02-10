@@ -7,7 +7,7 @@ const socket = socketIOClient( 'http://localhost:8080' )
 
 const App = () => {
   const { user } = useContext( Context )
-
+  console.log( 'user', user )
   useEffect( async () => { // refresh
     socket.emit( 'init', user )
   }, [] )

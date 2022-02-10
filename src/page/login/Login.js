@@ -60,6 +60,8 @@ const Login = () => {
         window.localStorage.setItem( 'user', JSON.stringify( user ) )
       }
       history( 'room' )
+    } else {
+      alert( '존재하지 않는 계정입니다.' )
     }
   }, [ idValue, passValue ] )
 

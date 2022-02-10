@@ -44,7 +44,7 @@ const MakeRoom = () => {
   const processedUserList = useMemo( () => {
     return _.filter( userList, usr => {
       console.log( usr )
-      return _.get( usr, 'id' ) !== _.get( user, 'id' )
+      return _.get( usr, 'userId' ) !== _.get( user, 'userId' )
     } )
   }, [ userList ] )
 
