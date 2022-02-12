@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState, useEffect } from 'react'
+import React, { useCallback, useContext, useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import 'page/room/Room'
 import socketIOClient from "socket.io-client"
@@ -6,8 +6,8 @@ import _ from 'lodash'
 import req2svr from './req2svr'
 import './Room.scss'
 import { Context } from "context/context"
-
-const socket = socketIOClient( 'http://localhost:8080' )
+import eventBus from 'eventBus'
+import moment from 'moment'
 
 const Room = () => {
   const history = useNavigate()
@@ -17,10 +17,16 @@ const Room = () => {
 
 
   useEffect( async () => {
+    await refreshRoomList()
+
+    notiftChattingEvent()
+  }, [] )
+
+  const refreshRoomList = async () => {
     const userId = _.get( user, 'userId' )
     const { roomList } = await req2svr.getRoomList( userId )
     setRoomList( roomList )
-  }, [] )
+  }
 
   const makeRoom = useCallback( () => {
     history( 'makeroom' )
@@ -30,10 +36,20 @@ const Room = () => {
     console.log(userGroupString)
     history( '/chat', { state: { roomId, userGroupString } } )
   }
-  
+
+  const notiftChattingEvent = ( roomId ) => {
+    eventBus.on( 'fromChat', ( data ) => {
+      console.log( data )
+      refreshRoomList()
+    } )
+  }
+
+  const dataFormat = ( value ) => {
+    return moment( value * 1 ).format( 'MM-DD hh:mm:ss' )
+  }
 
   return (
-    <div className="room">
+    <div className="room-wrapper">
       <div className='header'>
         <div className='title'>채팅</div>
         <div className='icon-area'>
@@ -54,10 +70,10 @@ const Room = () => {
             <div className='user-info'>
               <div className='top'>
                 <div className='name'>{ v.userGroupString }</div>
-                <div className='time'>03:00:00</div>
+                <div className='time'>{ dataFormat( v.lastChatDate ) }</div>
               </div>
               <div className='content'>
-                asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd
+                { v.lastChat }
               </div>
             </div>
           </div>

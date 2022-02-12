@@ -1,6 +1,7 @@
-.room {
+.room-wrapper {
   display: grid;
   grid-template-rows: 50px minmax(0, 1fr);
+  
   .header {
     display: flex;
     justify-content: space-between;
@@ -40,6 +41,7 @@
     gap: 20px;
 
     .room {
+      display: grid;
       grid-template-columns: 50px minmax(0, 1fr);
 
       .user-image {
@@ -66,7 +68,7 @@
           }
 
           .time {
-            font-size: 13px;
+            font-size: 10px;
             color: #BFBFBF;
           }
         }

@@ -33,7 +33,6 @@ const Chat = () => {
   }, [] )
 
   const toScrollBottom = () => {
-    console.log( 'toScrollBottom' )
     const { scrollHeight } = contentEl.current || 0
     if( !scrollHeight ) {
       return
