@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     background-color: #A9BDCE;
-    padding: 0 20px;
+    padding: 0 10px;
 
     .names {
       font-size: 14px;
@@ -18,10 +18,10 @@
   }
 
   .content {
+    overflow: auto;
+
     .another-chat {
-      display: grid;
-      grid-template-columns: minmax(0, 40px) minmax(0, 1fr) 60px;
-      grid-template-rows: minmax(0, 1fr);
+      display: flex;
       padding: 20px;
       gap: 5px;
 
@@ -30,7 +30,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
         border-radius: 6px;
         background-color: #ffffff;
       }

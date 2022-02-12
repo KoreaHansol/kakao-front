@@ -18,18 +18,22 @@ const MakeRoom = () => {
     setUserList( result )
   }, [] )
 
-  const checkBoxHandler = useCallback( ( id ) => {
+  const checkBoxHandler = useCallback( ( userId ) => {
     let newMap = { ...checkList }
-    if( !_.get( newMap, id ) ) {
-      newMap[id] = true
+    if( !_.get( newMap, userId ) ) {
+      newMap[userId] = true
       setCheckList( newMap )
     } else {
-      setCheckList( _.omit( newMap, id ) )
+      setCheckList( _.omit( newMap, userId ) )
     }
   }, [ checkList ] )
 
   const makeRoom = async () => {
-    const userList = [ user.id, 
+    if( _.isEmpty( checkList ) ) {
+      alert( '친구를 선택해주세요' )
+      return
+    } 
+    const userList = [ user.userId, 
       ..._( checkList )
           .keys()
           .map( o => o * 1 )
@@ -43,7 +47,6 @@ const MakeRoom = () => {
 
   const processedUserList = useMemo( () => {
     return _.filter( userList, usr => {
-      console.log( usr )
       return _.get( usr, 'userId' ) !== _.get( user, 'userId' )
     } )
   }, [ userList ] )
@@ -57,9 +60,9 @@ const MakeRoom = () => {
       <div className="content">
         { processedUserList.map( v => {
           return (
-            <div className="user-wrapper" key={ v.id }>
+            <div className="user-wrapper" key={ v.userId }>
               <div className="user-name">{ v.name }</div>
-              <CustomCheckBox value={ checkList[v.id] } onChange={ () => { checkBoxHandler( v.id ) } }/>
+              <CustomCheckBox value={ checkList[v.userId] } onChange={ () => { checkBoxHandler( v.userId ) } }/>
             </div>
           )
         } ) }

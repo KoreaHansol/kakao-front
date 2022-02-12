@@ -24,7 +24,7 @@ const ContextProvider = ( { children } ) => {
   const [ state, contextDispatch ] = useReducer( reducer, initialState )
   try { // refresh
     const localUser = JSON.parse( window.localStorage.getItem( 'user' ) )
-    if( !_.isEmpty( localUser ) ) {
+    if( !_.isEmpty( localUser ) && _.isEmpty( state.user ) ) {
       state.user = localUser
     }
   } catch( err ) {

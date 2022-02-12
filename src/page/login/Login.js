@@ -55,10 +55,7 @@ const Login = () => {
         ..._.get( result, '0' )
       }
       contextDispatch( { type: 'SETUSER', user } )
-      const localUser = JSON.parse( window.localStorage.getItem( 'user' ) )
-      if( _.isEmpty( localUser ) ) {
-        window.localStorage.setItem( 'user', JSON.stringify( user ) )
-      }
+      window.localStorage.setItem( 'user', JSON.stringify( user ) )
       history( 'room' )
     } else {
       alert( '존재하지 않는 계정입니다.' )
