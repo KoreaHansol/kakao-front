@@ -4,7 +4,8 @@ import React, { useReducer, createContext } from "react"
 export const Context = createContext()
 
 const initialState = {
-  user: {}
+  user: {},
+  roomId: null
 }
 
 const reducer = ( state, action ) => {
@@ -14,7 +15,11 @@ const reducer = ( state, action ) => {
         ...state,
         user: action.user,
       }
-    
+    case "SETROOMID" :
+      return {
+        ...state,
+        roomId: action.roomId
+      }
     default:
       throw new Error();
   }
@@ -31,7 +36,7 @@ const ContextProvider = ( { children } ) => {
     console.error( err )
   }
   return (
-    <Context.Provider value={ { user: state.user, contextDispatch } }>
+    <Context.Provider value={ { user: state.user, roomId: state.roomId, contextDispatch } }>
       { children }
     </Context.Provider>
   )

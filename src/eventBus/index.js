@@ -5,8 +5,8 @@ const eventBus = {
   dispatch( event, data ) {
     document.dispatchEvent( new CustomEvent( event, { detail: data } ) )
   },
-  remove( event ) {
-    document.removeEventListener( event )
+  remove( event, f ) {
+    document.removeEventListener( event, f )
   }
 }
 

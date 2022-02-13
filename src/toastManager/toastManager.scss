@@ -1,0 +1,42 @@
+.toast {
+  display: grid;
+  grid-template-columns: 20px 40px minmax(0, 1fr);
+  position: absolute;
+
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  height: 20px;
+
+  .toast-person-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    background-color: #94BFE7;
+    border-radius: 6px;
+
+    .toast-person {
+      font-size: 12px;
+      color: #ffffff;
+    }
+  }
+  .user-name {
+    font-weight: bold;
+    text-align: center;
+    font-size: 13px;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap;
+  }
+
+  .user-message {
+    font-size: 13px;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap;
+
+  }
+
+}

@@ -2,11 +2,10 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { useNavigate, useLocation } from 'react-router'
 import 'page/room/Room'
 import socketIOClient from "socket.io-client"
-import _, { initial } from 'lodash'
+import _ from 'lodash'
 import req2svr from './req2svr'
 import './Chat.scss'
 import { Context } from "context/context"
-import CustomInput from 'components/customInput/CustomInput'
 import CustomButton from 'components/customButton/CustomButton'
 import eventBus from 'eventBus'
 const socket = socketIOClient( 'http://localhost:8080' )
@@ -14,7 +13,7 @@ const socket = socketIOClient( 'http://localhost:8080' )
 const Chat = () => {
   const [ chatValue, setChatValue ] = useState( '' )
   const [ userGroupString, setUserGroupString ] = useState( '' )
-  const { user } = useContext( Context )
+  const { user, contextDispatch } = useContext( Context )
 
   const [ chatList, setChatList ] = useState( [] )
 
@@ -30,10 +29,12 @@ const Chat = () => {
       history( '/room' )
       return
     }
+    contextDispatch( { type: 'SETROOMID', roomId } )
     initState( roomId )
 
     return () => {
       socket.emit( 'leave', { userId: _.get( user, 'userId' ), roomId } )
+      contextDispatch( { type: 'SETROOMID', roomId: null } )
     }
   }, [] )
 
@@ -58,8 +59,7 @@ const Chat = () => {
   }
 
   const notiftChattingEvent = ( roomId ) => {
-    eventBus.on( 'fromChat', async (data) => {
-      console.log( data )
+    eventBus.on( 'fromChat', async () => {
       await refreshChatList( roomId ) 
       toScrollBottom()
     } )
@@ -81,7 +81,8 @@ const Chat = () => {
     }
     const userId = _.get( user, 'userId' )
     const roomId = _.get( state, 'roomId' )
-    await req2svr.pushChat( userId, chatValue, roomId )
+    const userName = _.get( user, 'name' )
+    await req2svr.pushChat( userId, chatValue, roomId, userName )
     setChatValue( '' )
   }
 
