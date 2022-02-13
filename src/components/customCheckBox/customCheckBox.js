@@ -20,7 +20,7 @@ const CustomCheckBox = ( { value, readOnly, trueValue, falseValue, onChange } ) 
   return (
    <div className="checkbox-wrapper" onClick={ changeInput }>
      <div className={ isChecked ? 'box checked' : 'box none' }>
-      <span className="material-icons">{ isChecked && 'done' }</span>
+      <span className="done material-icons">{ isChecked && 'done' }</span>
      </div>
    </div> 
   ) 

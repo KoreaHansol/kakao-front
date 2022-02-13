@@ -54,18 +54,33 @@ const MakeRoom = () => {
   return (
     <div className="make-room-wrapper">
       <div className="header">
-        <span className="material-icons" onClick={ () => { history( -1 ) } }>chevron_left</span>
-        <div className="complete" onClick={ makeRoom }>완료</div>
+        <div className='header-text'>대화상대 선택</div>
+        <span className="close-make material-icons" onClick={ () => { history( -1 ) } }>close</span>
       </div>
       <div className="content">
+        <div className='friend'>친구 { _.get( processedUserList, 'length', 0 ) }</div>
         { processedUserList.map( v => {
           return (
             <div className="user-wrapper" key={ v.userId }>
+              <div className='dummy-image-box'>
+                <span className="person material-icons">person_outline</span>
+              </div>
               <div className="user-name">{ v.name }</div>
-              <CustomCheckBox value={ checkList[v.userId] } onChange={ () => { checkBoxHandler( v.userId ) } }/>
+              <div className='box-wrapper'>
+                <CustomCheckBox value={ checkList[v.userId] } onChange={ () => { checkBoxHandler( v.userId ) } }/>
+              </div>
             </div>
           )
         } ) }
+      </div>
+
+      <div className='footer'>
+        <div className={ !_.isEmpty( checkList ) ? 'button-apply' : 'button-apply disabled' } onClick={ makeRoom }>
+          완료
+        </div>
+        <div className='button-cancel' onClick={ () => { history( -1 ) } }>
+          취소
+        </div>
       </div>
     </div>
   )

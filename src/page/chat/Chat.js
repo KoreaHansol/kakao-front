@@ -19,6 +19,7 @@ const Chat = () => {
   const [ chatList, setChatList ] = useState( [] )
 
   const contentEl = useRef()
+  const textArea = useRef()
 
   let { state } = useLocation()
   const history = useNavigate()
@@ -46,7 +47,7 @@ const Chat = () => {
 
   const initState = async ( roomId ) => {
     await refreshChatList( roomId )
-    
+
     socket.emit( 'enter', { userId: _.get( user, 'userId' ), roomId } )
 
     const userGroupString = _.get( state, 'userGroupString' )
@@ -74,6 +75,7 @@ const Chat = () => {
   }, [] )
 
   const sendClickHandler = async () => {
+    textArea.current.focus()
     if( !chatValue ) {
       return
     }
@@ -90,7 +92,6 @@ const Chat = () => {
         <div className='names'>{ userGroupString }</div>
       </div>
       <div className='content' ref={contentEl}>
-
         { chatList.map( v => {
           return (
             <div key={v.chatId}>
@@ -115,9 +116,8 @@ const Chat = () => {
         } ) }
       </div>
       <div className='input-area'>
-        <textarea className="text-area" maxLength={ 99 } value={ chatValue } onChange={ inputChangeHandler }/>
+        <textarea className="text-area" maxLength={ 99 } value={ chatValue } onChange={ inputChangeHandler } ref={ textArea }/>
         <div className='btn-area'>
-        {/* onClick, children, disabled */}
           <CustomButton onClick={ sendClickHandler } disabled={ !chatValue }>
             <div>전송</div>
           </CustomButton>

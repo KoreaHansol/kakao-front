@@ -68,7 +68,15 @@ const Room = () => {
         { roomList.map( v => {
           return <div className='room' key={ v.roomId } onClick={ () => { joinRoom( v.roomId, v.userGroupString ) } }>
             <div className='image-wrapper'>
-              <div className='image-content'>wq</div>
+              <div className='image-content'>
+                { Array( v.userCount <= 4 ? v.userCount : 4 ).fill( 1 ).map( ( v, i ) => {
+                  return (
+                    <div className='image' key={ i }>
+                      <span className="person material-icons">person_outline</span>
+                    </div>
+                  )
+                } ) }
+              </div>
             </div>
             <div className='chat-content'>
               <div className='name'>{ v.userGroupString }</div>
@@ -81,7 +89,6 @@ const Room = () => {
                   <div className='not-read-text'>{ v.notRead }</div>
                 </div> : 
                 <div></div> }
-              
             </div>
           </div>
         } ) }
