@@ -30,6 +30,10 @@ const Chat = () => {
       return
     }
     initState( roomId )
+
+    return () => {
+      socket.emit( 'leave', { userId: _.get( user, 'userId' ), roomId } )
+    }
   }, [] )
 
   const toScrollBottom = () => {
@@ -42,6 +46,8 @@ const Chat = () => {
 
   const initState = async ( roomId ) => {
     await refreshChatList( roomId )
+    
+    socket.emit( 'enter', { userId: _.get( user, 'userId' ), roomId } )
 
     const userGroupString = _.get( state, 'userGroupString' )
     setUserGroupString( userGroupString )
@@ -51,7 +57,8 @@ const Chat = () => {
   }
 
   const notiftChattingEvent = ( roomId ) => {
-    eventBus.on( 'fromChat', async () => {
+    eventBus.on( 'fromChat', async (data) => {
+      console.log( data )
       await refreshChatList( roomId ) 
       toScrollBottom()
     } )

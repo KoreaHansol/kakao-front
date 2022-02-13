@@ -8,6 +8,7 @@ import './Room.scss'
 import { Context } from "context/context"
 import eventBus from 'eventBus'
 import moment from 'moment'
+const socket = socketIOClient( 'http://localhost:8080' )
 
 const Room = () => {
   const history = useNavigate()
@@ -15,11 +16,15 @@ const Room = () => {
 
   const [ roomList, setRoomList ] = useState( [] )
 
-
   useEffect( async () => {
-    await refreshRoomList()
+    socket.emit( 'init', user )
+    socket.on( 'chat', ( data ) => {
+      eventBus.dispatch( 'fromChat', data )
+    } )
 
+    await refreshRoomList()
     notiftChattingEvent()
+    return () => eventBus.remove( 'fromChat' )
   }, [] )
 
   const refreshRoomList = async () => {
@@ -33,13 +38,11 @@ const Room = () => {
   }, [] )
 
   const joinRoom = ( roomId, userGroupString ) => {
-    console.log(userGroupString)
     history( '/chat', { state: { roomId, userGroupString } } )
   }
 
-  const notiftChattingEvent = ( roomId ) => {
-    eventBus.on( 'fromChat', ( data ) => {
-      console.log( data )
+  const notiftChattingEvent = () => {
+    eventBus.on( 'fromChat', () => {
       refreshRoomList()
     } )
   }
@@ -64,17 +67,21 @@ const Room = () => {
       <div className='content'>
         { roomList.map( v => {
           return <div className='room' key={ v.roomId } onClick={ () => { joinRoom( v.roomId, v.userGroupString ) } }>
-            <div className='user-image'>
-              image
+            <div className='image-wrapper'>
+              <div className='image-content'>wq</div>
             </div>
-            <div className='user-info'>
-              <div className='top'>
-                <div className='name'>{ v.userGroupString }</div>
-                <div className='time'>{ dataFormat( v.lastChatDate ) }</div>
-              </div>
-              <div className='content'>
-                { v.lastChat }
-              </div>
+            <div className='chat-content'>
+              <div className='name'>{ v.userGroupString }</div>
+              <div className='last-chat'>{ v.lastChat }</div>
+            </div>
+            <div className='time-zone'>
+              <div className='time'>{ dataFormat( v.lastChatDate ) }</div>
+              { v.notRead ?
+                <div className='not-read-box'>
+                  <div className='not-read-text'>{ v.notRead }</div>
+                </div> : 
+                <div></div> }
+              
             </div>
           </div>
         } ) }

@@ -62,9 +62,9 @@ const SignUp = () => {
       arr.push( '비밀번호를 정확히 입력해주세요' )
     }
 
-    if( !_.includes( email, '@' ) ) {
-      arr.push( '이메일 형식이 올바르지 않습니다' )
-    }
+    // if( !_.includes( email, '@' ) ) {
+    //   arr.push( '이메일 형식이 올바르지 않습니다' )
+    // }
 
     setReason( arr )
 
