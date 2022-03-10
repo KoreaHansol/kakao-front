@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from 'page/login/Login'
+import Login from '../page/login'
 import './Routes.css'
-import Room from 'page/room/Room'
-import SignUp from 'page/singup/SignUp'
-import Chat from 'page/chat/Chat'
-import MakeRoom from 'page/makeRoom/MakeRoom'
+import Room from '../page/room'
+import SignUp from '../page/singup'
+import Chat from '../page/chat'
+import MakeRoom from '../page/makeRoom'
 
 const Router = () => {
   return (

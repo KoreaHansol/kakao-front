@@ -1,5 +1,4 @@
 import React, { useCallback } from "react"
-import _ from 'lodash'
 import './CustomInput.scss'
 
 const CustomInput = ( { value, placeHolder, onChange, disabled } ) => {

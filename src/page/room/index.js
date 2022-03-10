@@ -1,14 +1,12 @@
-import React, { useCallback, useContext, useState, useEffect, useMemo } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import 'page/room/Room'
-import socketIOClient from "socket.io-client"
-import _ from 'lodash'
-import req2svr from './req2svr'
-import './Room.scss'
-import { Context } from "context/context"
-import eventBus from 'eventBus'
+import { Context } from "../../context"
+import eventBus from '../../eventBus'
+import socket from '../../util/socket'
 import moment from 'moment'
-const socket = socketIOClient( 'http://localhost:8080' )
+import _ from 'lodash'
+import './Room.scss'
+import req2svr from './req2svr'
 
 const Room = () => {
   const history = useNavigate()
@@ -33,9 +31,9 @@ const Room = () => {
     setRoomList( roomList )
   }
 
-  const makeRoom = useCallback( () => {
+  const makeRoom = () => {
     history( 'makeroom' )
-  }, [] )
+  }
 
   const joinRoom = ( roomId, userGroupString ) => {
     history( '/chat', { state: { roomId, userGroupString } } )

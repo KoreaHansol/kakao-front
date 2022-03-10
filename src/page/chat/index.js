@@ -1,14 +1,13 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router'
-import 'page/room/Room'
-import socketIOClient from "socket.io-client"
-import _ from 'lodash'
+import { Context } from "../../context"
+import eventBus from '../../eventBus'
 import req2svr from './req2svr'
+import _ from 'lodash'
 import './Chat.scss'
-import { Context } from "context/context"
-import CustomButton from 'components/customButton/CustomButton'
-import eventBus from 'eventBus'
-const socket = socketIOClient( 'http://localhost:8080' )
+import '../room'
+import CustomButton from '../../components/customButton'
+import socket from '../../util/socket'
 
 const Chat = () => {
   const [ chatValue, setChatValue ] = useState( '' )

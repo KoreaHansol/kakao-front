@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState, useContext } from 'react'
-import { Context } from "context/context"
+import React, { useEffect, useState, useContext, useMemo } from 'react'
+import { useNavigate } from 'react-router'
+import { Context } from "../../context"
 import _ from 'lodash'
 import req2svr from './req2svr'
 import './MakeRoom.scss'
-import CustomCheckBox from 'components/customCheckBox/customCheckBox'
-import { useNavigate } from 'react-router'
-import { useMemo } from 'react/cjs/react.development'
+import CustomCheckBox from '../../components/customCheckbox'
 
 const MakeRoom = () => {
   const { user } = useContext( Context )
@@ -14,11 +13,11 @@ const MakeRoom = () => {
   const history = useNavigate()
 
   useEffect( async () => {
-    const { result } = await req2svr.getuserlist()
+    const { result } = await await req2svr.getuserlist()
     setUserList( result )
   }, [] )
 
-  const checkBoxHandler = useCallback( ( userId ) => {
+  const checkBoxHandler = userId => {
     let newMap = { ...checkList }
     if( !_.get( newMap, userId ) ) {
       newMap[userId] = true
@@ -26,7 +25,7 @@ const MakeRoom = () => {
     } else {
       setCheckList( _.omit( newMap, userId ) )
     }
-  }, [ checkList ] )
+  }
 
   const makeRoom = async () => {
     if( _.isEmpty( checkList ) ) {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useMemo, useState } from 'react'
+import React, { useEffect, useRef, useMemo, useState } from 'react'
 import _ from 'lodash'
 import './CustomInputSelector.scss'
 
@@ -20,23 +20,23 @@ const CustomInputSelector = ( { value, onChange, items , placeHolder, valueProp 
     }
   }
 
-  const inputChangeHandler = useCallback( ( event ) => {
+  const inputChangeHandler = event => {
     onChange( event.target.value )
-  }, [ onChange ] )
+  }
 
-  const selectHandler = useCallback( ( v ) => {
+  const selectHandler = v => {
     onSelect( v.value )
     setIsOpen( false )
-  }, [ isOpen, onSelect ] )
+  }
 
-  const deleteHandler = useCallback( ( v, e ) => {
+  const deleteHandler = ( v, e ) => {
     e.stopPropagation()
     onDelete( v.value )
-  }, [ items ] )
+  }
   
-  const switchIsOpen = useCallback( () => {
+  const switchIsOpen = () => {
     setIsOpen( !isOpen )
-  }, [ isOpen ] )
+  }
 
   const processedItem = useMemo( () => {
     return _.map( items, item => {
@@ -46,7 +46,7 @@ const CustomInputSelector = ( { value, onChange, items , placeHolder, valueProp 
         key: _.get( item, keyProp, item )
       }
     } )
-  }, [ items ] )
+  }, [ items, valueProp, textProp, keyProp ] )
 
   return (
     <div className="select-input">

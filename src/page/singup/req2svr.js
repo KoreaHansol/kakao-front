@@ -1,6 +1,6 @@
 import axios from 'axios'
-import apiurl from 'util/apiurl'
 import _ from 'lodash'
+import apiurl from '../../util/apiurl'
 
 let checkResCode = res => {
   if( _.get( res, 'data.code' ) === 200 ) return _.get( res, 'data.payload' )

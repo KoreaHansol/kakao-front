@@ -1,13 +1,10 @@
-import 'App.scss'
-import { useEffect, useContext } from 'react'
-import Routes from 'router/Routes'
-import toastManager from 'toastManager'
-import eventBus from 'eventBus'
-import { Context } from "context/context"
+import { useEffect } from 'react'
+import '../src/App.scss'
+import Routes from './router'
+import toastManager from './toastManager'
+import eventBus from './eventBus'
 
 const App = () => {
-  const { user, roomId } = useContext( Context )
-
   useEffect( () => {
     eventBus.on( 'fromChat', data => {
         toastManager.open( { message: data.message, userName: data.fromUserName } )

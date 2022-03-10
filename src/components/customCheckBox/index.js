@@ -1,14 +1,12 @@
-import React, { useCallback } from "react"
-import _ from 'lodash'
-import './customCheckBox.scss'
-import { useMemo } from "react/cjs/react.development"
+import React, { useMemo } from "react"
 import PropTypes from "prop-types"
+import './customCheckbox.scss'
 
-const CustomCheckBox = ( { value, readOnly, trueValue, falseValue, onChange } ) => {
+const CustomCheckbox = ( { value, readOnly, trueValue, falseValue, onChange } ) => {
   
   const isChecked = useMemo( () => {
     return value === trueValue
-  }, [ value ] )
+  }, [ value, trueValue ] )
 
   const changeInput = () => {
     if( readOnly ) {
@@ -26,16 +24,16 @@ const CustomCheckBox = ( { value, readOnly, trueValue, falseValue, onChange } ) 
   ) 
 }
 
-CustomCheckBox.defaultProps = {
+CustomCheckbox.defaultProps = {
   value: false,
   readOnly: false,
   trueValue: true,
   falseValue: false
 }
 
-CustomCheckBox.propTypes = {
+CustomCheckbox.propTypes = {
   value: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
-export default React.memo( CustomCheckBox )
+export default React.memo( CustomCheckbox )

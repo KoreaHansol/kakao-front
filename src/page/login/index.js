@@ -1,13 +1,13 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { Context } from "../../context"
 import req2svr from './req2svr'
 import _ from 'lodash'
-import 'page/login/Login.scss'
-import KakaoImage from 'static/image/kakao.jpeg'
-import CustomInput from 'components/customInput/CustomInput'
-import CustomInputSelector from 'components/customInputSelector/CustomInputSelector'
-import CustomButton from 'components/customButton/CustomButton'
-import { useNavigate } from 'react-router'
-import { Context } from "context/context"
+import './Login.scss'
+import KakaoImage from '../../static/image/kakao.jpeg'
+import CustomInput from '../../components/customInput'
+import CustomInputSelector from '../../components/customInputSelector'
+import CustomButton from '../../components/customButton'
 
 const Login = () => {
   const [ idList, setIdList ] = useState( [] )
@@ -30,24 +30,24 @@ const Login = () => {
     }
   }, [] )
 
-  const onChangeInput = useCallback( ( value ) => {
+  const onChangeInput = value => {
     setIdValue( value )
-  }, [] )
+  }
 
-  const onSelectHandler = useCallback( ( value ) => {
+  const onSelectHandler = value => {
     setIdValue( value )
-  }, [] )
+  }
 
-  const onChangePasswordHandler = useCallback( ( value ) => {
+  const onChangePasswordHandler = value => {
     setPassValue( value )
-  }, [] )
+  }
 
-  const onDeleteHandler = useCallback( ( value ) => {
+  const onDeleteHandler = value => {
     const list = _.filter( idList, id => id.userId !== value )
     setIdList( list )
-  }, [ idList ] )
+  }
 
-  const onLoginClick = useCallback(  async () => {
+  const onLoginClick = async () => {
     const data = { email: idValue, password: passValue }
     const { result } = await req2svr.validateuser( data )
     if( result.length ) {
@@ -60,11 +60,11 @@ const Login = () => {
     } else {
       alert( '존재하지 않는 계정입니다.' )
     }
-  }, [ idValue, passValue ] )
+  }
 
-  const onClickSingUp = useCallback( () => {
+  const onClickSingUp = () => {
     history( 'signup' )
-  } )
+  }
 
   return (
     <div className="login">

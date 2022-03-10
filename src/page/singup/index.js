@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react'
-import 'page/room/Room'
+import { useNavigate } from 'react-router'
 import _ from 'lodash'
 import req2svr from './req2svr'
 import './SignUp.scss'
-import CustomInput from 'components/customInput/CustomInput'
-import { useCallback } from 'react/cjs/react.development'
-import CustomButton from 'components/customButton/CustomButton'
-import { useNavigate } from 'react-router'
+import CustomInput from '../../components/customInput'
+import CustomButton from '../../components/customButton'
 
 const SignUp = () => {
   const [ email, setEmail ] = useState( '' )
@@ -18,20 +16,23 @@ const SignUp = () => {
 
   const history = useNavigate()
 
-  const onChangeEmail = useCallback( ( value ) => {
+  const onChangeEmail = value => {
     setEmail( value )
-  }, [] )
-  const onChangePassword = useCallback( ( value ) => {
-    setPassword( value )
-  }, [] )
-  const onChangePasswordConfirm = useCallback( ( value ) => {
-    setPasswordConfirm( value )
-  }, [] )
-  const onChangeName = useCallback( ( value ) => {
-    setName( value )
-  }, [] )
+  }
 
-  const singUp = useCallback( async () => {
+  const onChangePassword = value => {
+    setPassword( value )
+  }
+
+  const onChangePasswordConfirm = value => {
+    setPasswordConfirm( value )
+  }
+
+  const onChangeName = value => {
+    setName( value )
+  }
+
+  const singUp = async () => {
     setSign( true )
 
     if( validate ) {
@@ -50,7 +51,7 @@ const SignUp = () => {
         console.error( err )
       }
     }
-  } )
+  }
 
   const validate = useMemo( () => {
     let arr = []
